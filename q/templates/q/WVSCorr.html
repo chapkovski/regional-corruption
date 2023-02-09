@@ -1,0 +1,107 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+    <style>
+        fieldset {
+            display: flex !important;
+        }
+
+        label.btn.btn-default.btn-secondary.active {
+            background: yellow;
+            color: black;
+        }
+
+        .sv_q_rating_min_text span.sv-string-viewer, .sv_q_rating_max_text span.sv-string-viewer {
+            color: black;
+        }
+
+    </style>
+
+
+    <div id="surveyElement" style="display:inline-block;width:100%;"></div>
+    <div id="surveyResult"></div>
+    <input type="hidden" id="surveyholder" name="surveyholder">
+    <script>
+        Survey.defaultBootstrapCss.navigationButton = "btn-primary btn-lg";
+        Survey
+            .StylesManager
+            .applyTheme("bootstrap");
+        const reqtext = 'Пожалуйста, ответьте на этот вопрос'
+        var json = {
+            requiredText: '',
+
+            showQuestionNumbers: "off",
+            showCompletedPage: false,
+            completeText: "Далее",
+            questions: [
+                {
+                    isRequired: true,
+                    requiredErrorText: reqtext,
+                    "type": "rating",
+                    "name": "wvs_q112",
+                    "title": "В какую точку Вы поместили бы Россию на  шкале, где 1 означает,  что в стране \"совсем нет коррупции\", а 10 - что «коррупция в России повсеместна». ",
+                    "rateMax": 10,
+                    "minRateDescription": "В стране совсем нет коррупции",
+                    "maxRateDescription": "Коррупция в России повсеместна"
+                },
+                {
+                    isRequired: true,
+                    requiredErrorText: reqtext,
+                    "type": "rating",
+                    "name": "wvs_q118",
+                    "title": "Как часто, по Вашему опыту, обычные люди вроде Вас или живущие с Вами по соседству вынуждены давать взятки, дарить подарки или делать одолжения другим для того, чтобы были решены их вопросы или оказаны услуги, на которые они и так имеют право?",
+                    "rateValues": [
+                        {
+                            "value": 1,
+                            "text": "Никогда"
+                        },
+                        {
+                            "value": 2,
+                            "text": "Редко"
+                        },
+                        {
+                            "value": 3,
+                            "text": "Часто"
+                        },
+                        {
+                            "value": 4,
+                            "text": "Всегда"
+                        },
+                    ]
+                },
+                {
+                    isRequired: true,
+                    requiredErrorText: reqtext,
+                    "type": "rating",
+                    "name": "wvs_q120",
+                    "title": "Как Вы считаете, насколько велик в нашей стране риск быть привлеченным к ответственности за дачу  или получение взятки, подарка или одолжения, чтобы получить государственные услуги? ",
+                    "rateMax": 10,
+                    "minRateDescription": "Совсем никакого риска",
+                    "maxRateDescription": "Риск очень велик"
+                }
+            ]
+        };
+
+        window.survey = new Survey.Model(json);
+
+        survey
+            .onComplete
+            .add(function (sender) {
+                document
+                $('#surveyholder').val(JSON.stringify(sender.data, null, 3))
+                $('#form').submit()
+                ;
+            });
+
+        $("#surveyElement").Survey({model: survey});
+        ;
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+ <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Подбросьте монетку и сообщите, что у вас выпало: орел или решка.
+                    </li>
+                    <li class="list-group-item">
+                        В случае если у вас выпадет орел, то ваш бонус в этой части увеличивается
+                        на {{ subsession.get_head_bonus }}.
+
+                    </li>
+                    <li class="list-group-item">
+                        В случае если у вас выпадет решка, то ваш бонус в этой части не увеличивается.
+
+                    </li>
+                    <li class="list-group-item">
+                        Если у вас нет монетки под рукой, вы можете воспользоваться онлайн-сервисом подбрасывания
+                        монеток (например, <a
+                            href="https://castlots.org/" target="_blank">здесь</a> или <a
+                            href="https://calculator888.ru/random-generator/brosit-monetku" target="_blank">здесь</a>)
+                        или найти
+                        аналогичный сервис в интернете.
+
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>

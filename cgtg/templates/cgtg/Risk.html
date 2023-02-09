@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Risk
+{% endblock %}
+
+
+{% block content %}
+<style>
+    label.btn.btn-default.btn-secondary.active {
+        background: yellow;
+        color: black;
+    }
+
+</style>
+
+
+<div id="surveyElement" style="display:inline-block;width:100%;"></div>
+<div id="surveyResult"></div>
+<input type="hidden" id="surveyholder" name="surveyholder">
+<script>
+    Survey.defaultBootstrapCss.navigationButton = "btn-primary btn-lg";
+    Survey
+        .StylesManager
+        .applyTheme("bootstrap");
+
+    var json = {
+        showCompletedPage: false,
+        questions: [
+            {
+                hideNumber: true,
+                "type": "matrixdropdown",
+                "name": "risk",
+                "title": "Пожалуйста, укажите, насколько Вы готовы идти на риск?",
+
+                "columns": [
+                    {
+                        name: "col1",
+                        title: 'Для ответа выберите значение по шкале от 0 до 10, где 0 означает, что вы "совсем не готовы рисковать", а 10 означает, что вы "очень готовы рисковать.\n',
+                        cellType: "rating",
+                        "rateMin": 0,
+                        "rateMax": 10,
+                        isRequired: false,
+                        requiredErrorText: 'Выберите ответ',
+                    },
+                ],
+                "rows": [
+                    {value: "risk_general", text: 'In general'},
+                    {value: "risk_fin", text: 'In financial matters'},
+                    {value: "risk_sport", text: 'In leisure and sport'},
+                    {value: "risk_prof", text: 'In professional career'},
+                    {value: "risk_health", text: 'In health'},
+                    {value: "risk_strangers", text: 'With strangers'},
+                    {value: "risk_drive", text: 'While driving'},
+
+                ]
+            }
+        ],
+        "completeText": "Next"
+    };
+
+    window.survey = new Survey.Model(json);
+
+    survey
+        .onComplete
+        .add(function (sender) {
+            document
+            $('#surveyholder').val(JSON.stringify(sender.data, null, 3))
+            $('#form').submit()
+            ;
+        });
+
+    $("#surveyElement").Survey({model: survey});
+    ;
+</script>
+
+
+{% endblock %}

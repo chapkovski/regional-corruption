@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+     <div class="row">
+        <div class="col m-0 p-0">
+            {% include 'cgtg/includes/role_alert.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m-0 p-0">
+            {% include 'cgtg/includes/tg_instructions.html' %}
+        </div>
+    </div>
+
+
+    <div class="row">
+        {% include 'cgtg/includes/regional_desc.html' %}
+
+        <div class="row">
+            {% for r,f in data_to_show %}
+                {% include 'cgtg/includes/single_region_info.html' with r=r f=f %}
+            {% endfor %}
+
+        </div>
+    </div>
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,7 @@
+otree==3.4.0
+psycopg2==2.8.6
+pandas
+pyyaml
+Markdown
+MarkupSafe
+django_user_agents

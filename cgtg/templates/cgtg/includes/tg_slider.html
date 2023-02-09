@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div>
+                Если участник А шлет участнику Б <b> <span id="first"></span> центов</b>:
+
+            </div>
+            <div class="my-5" style="height:30px" class="d-flex flex-column align-items-center justify-content-center">
+                <div id="slider"></div>
+            </div>
+
+            <div>то участник Б получает <b><span id="secondrec"></span> центов</b>. Из них он может послать назад:</div>
+
+            <div class="my-5" style="height:30px" class="d-flex flex-column align-items-center justify-content-center">
+                <div id="slider2"></div>
+            </div>
+
+            <div>Бонус участника А: <b><span id='firstpayoff'>100</span> центов</b></div>
+            <div>Бонус участника Б: <b><span id='secondpayoff'>100</span> центов</b></div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var slider = document.getElementById("slider");
+    var slider2 = document.getElementById("slider2");
+    var coef = 3;
+    var endowment = 100;
+
+    noUiSlider.create(slider, {
+        tooltips: [true],
+        pips: {
+            mode: 'range',
+            density: 5
+        },
+        start: [0],
+        step: 5,
+        connect: true,
+        range: {
+            min: 0,
+            max: endowment
+        }
+    });
+
+    noUiSlider.create(slider2, {
+        tooltips: [true],
+        start: [0],
+        pips: {
+            mode: 'range',
+            density: 5
+        },
+        step: 5,
+        range: {
+            min: 0,
+            max: endowment
+        }
+    });
+    slider.noUiSlider.on("update", function (values, handle) {
+        const curValue = parseInt(values[handle]);
+        $("#first").html(curValue.toFixed(0));
+        $("#secondrec").html((curValue * coef).toFixed(0));
+        slider2.noUiSlider.set(0);
+        if (curValue === 0) {
+            slider2.setAttribute('disabled', true);
+            $("#slider2").attr("disabled", true);
+        } else {
+            slider2.setAttribute('disabled', false);
+            $("#slider2").attr("disabled", false);
+        }
+        slider2.noUiSlider.updateOptions({
+
+
+            range: {
+                min: 0,
+                max: curValue * coef
+            }
+        });
+    });
+
+    slider2.noUiSlider.on("update", function (values, handle) {
+        const firstSent = parseInt(slider.noUiSlider.get());
+        const secondSend = parseInt(values[handle]);
+        $("#secondsend").html(secondSend.toFixed(0));
+
+        $("#firstpayoff").html((endowment - firstSent + secondSend).toFixed(0));
+        $("#secondpayoff").html(
+            (endowment + firstSent * coef - secondSend).toFixed(0)
+        );
+    });
+
+</script>

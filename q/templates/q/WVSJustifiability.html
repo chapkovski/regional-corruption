@@ -1,0 +1,81 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+    <style>
+
+
+    </style>
+
+
+    <div id="surveyElement" style="display:inline-block;width:100%;"></div>
+    <div id="surveyResult"></div>
+    <input type="hidden" id="surveyholder" name="surveyholder">
+    <script>
+        Survey.defaultBootstrapCss.navigationButton = "btn-primary btn-lg";
+        Survey
+            .StylesManager
+            .applyTheme("bootstrap");
+
+        var json = {
+            showCompletedPage: false,
+            completeText: "Далее",
+            questions: [
+                {
+                    hideNumber: true,
+                    "type": "matrixdropdown",
+                    "name": "wvs_just",
+                    "title": "Ниже перечислены  различные действия. В какой степени каждое из этих действий, на Ваш взгляд, может быть оправдано?",
+                    {#"titleLocation": "hidden",#}
+                    "columns": [
+                        {
+                            name: "just",
+                            title: '«10» означает, что оно может быть оправдано всегда, а «1» - никогда не может быть оправдано.',
+                            "titleLocation": "hidden",
+                            cellType: "rating",
+                            "rateMin": 1,
+                            "rateMax": 10,
+                            isRequired: true,
+                            requiredErrorText: 'Пожалуйста, ответьте на этот вопрос',
+                        },
+                    ],
+                    "rows": [
+                        {
+                            value: "wvs_q177",
+                            text: 'Получение государственных пособий, на которые человек не имеет права'
+                        },
+                        {value: "wvs_q178", text: 'Проезд без оплаты в общественном транспорте'},
+                        {value: "wvs_q179", text: 'Кража чужой собственности'},
+                        {value: "wvs_q180", text: 'Неуплата налогов, если есть такая возможность'},
+                        {value: "wvs_q181", text: 'Получение взятки, используя служебное положение'},
+
+
+                    ]
+                }
+            ],
+
+        };
+
+        window.survey = new Survey.Model(json);
+
+        survey
+            .onComplete
+            .add(function (sender) {
+                document
+                $('#surveyholder').val(JSON.stringify(sender.data, null, 3))
+                $('#form').submit()
+                ;
+            });
+
+        $("#surveyElement").Survey({model: survey});
+        ;
+    </script>
+
+
+
+{% endblock %}

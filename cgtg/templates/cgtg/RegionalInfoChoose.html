@@ -1,0 +1,68 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% if player.app == 'tg' %}
+
+
+
+        {% include 'cgtg/includes/role_alert.html' %}
+
+    {% endif %}
+    <div class="card my-3">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                {% if player.app == 'tg' %}
+                    <li class="list-group-item">
+                        Участник Б может быть из любого из трех регионов России, которые принимают участие в
+                        исследовании.
+                    </li>
+                    <li class="list-group-item">
+                        Поэтому вам необходимо будет принять <b>три решения</b> - по одному для
+                        каждого региона. Одно из этих решений определит ваш бонус: в зависимости от
+                        того, из какого региона будет участник Б.
+                    </li>
+                {% endif %}
+                <li class="list-group-item">
+                    Выберите ниже <b>три</b> параметра, которые вы хотите знать о каждом из трех регионов, которые
+                    принимают участие в исследовании.
+                </li>
+                <li class="list-group-item">
+                    <b>ВАЖНО:</b> единожды приняв решение о том, какие параметры будут показаны про каждый из
+                    регионов,
+                    вы не сможете в дальнейшем поменять это решение.
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    {% autoescape off %}
+        <table class="table">
+            {% for param in participant.vars.params %}
+
+                <tr>
+                    <td><input type="checkbox" name="{{ param.name }}" id="{{ param.name }}"/></td>
+                    <td><label for="{{ param.name }}">
+                        {{ param.title }}
+                    </label>
+                    </td>
+                    <td>
+                        <label for="{{ param.name }}">
+                            {{ param.description }}
+                        </label>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+
+    {% endautoescape %}
+
+    {% next_button %}
+{% endblock %}

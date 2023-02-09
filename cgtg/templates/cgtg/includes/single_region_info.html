@@ -1,0 +1,36 @@
+<div class="col-md-4 my-3 col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            {{ r.name }}
+        </div>
+        <div class="card-body">
+            <ul class="list-group mb-3   list-group-flush">
+                {% for foo in r.info %}
+                    <li class="list-group-item d-flex  ">
+                        <div class="mr-auto">
+                        <span class="d-flex flex-row">{{ foo.info_label }}:<button type="button"
+                                                                                   class="mx-1 btn-sm btn btn-danger btn-rounded btn-icon info-button"
+                                                                                   data-toggle="popover"
+                                                                                   tabindex="-1"
+                                                                                   title="<b>{{ foo.info_label }}"
+                                                                                   data-html="true"
+                                                                                   data-trigger="hover"
+                                                                                   data-content="{{ foo.info_description }}"><i
+                                class="fa fa-info"></i></button>
+                        </span>
+                        </div>
+                        <div><span class="badge bg-primary text-white rounded-pill lg">{{ foo.value }}</span></div>
+                    </li>
+                {% endfor %}
+                {% if f|default_if_none:False %}
+                    <li class="list-group-item">
+                        {% autoescape off %}<h6>{{ f.label }}</h6>{% endautoescape %}
+                        {{ f.field }}
+                        <small>{{ f.comment }}</small>
+                    </li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

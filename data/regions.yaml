@@ -1,0 +1,26 @@
+- name: Архангельская область
+  values:
+    corruption: 17
+    grp: 712653
+    pop_age: 40.15
+    cpi: 103.3
+    unemployment: 6.3
+    born: 9.0
+- name: Москва
+  values:
+    corruption: 58
+    grp: 1423589
+    pop_age: 41.89
+    cpi: 103.4
+    unemployment: 1.4
+    born: 10.7
+- name: Воронежская область
+  values:
+    corruption: 81
+    grp: 404839
+    pop_age: 41.92
+    cpi: 102.6
+    unemployment: 3.6
+    born: 8.4
+
+

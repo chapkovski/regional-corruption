@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Общие правила
+{% endblock %}
+{% block content %}
+    {% include 'cgtg/includes/instruction_alert.html' %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text">
+                <ul class="list-group list-group-flush">
+                    {% if not session.config.debug|default_if_none:False %}
+
+
+                        <li class="list-group-item">
+                            Данное исследование состоит из двух частей: Часть 1 и Часть 2.
+                        </li>
+                        <li class="list-group-item">
+                            В обоих частях вы можете получить дополнительный бонус в дополнение к плате за исследование.
+                        </li>
+                        <li class="list-group-item">
+                            В конце исследования одна из этих частей будет выбрана <b>случайным образом</b> и вам будет
+                            заплачен бонус, полученный вами в этой части.
+                        </li>
+                    {% endif %}
+                    <li class="list-group-item">
+                        Ваш бонус будет зависеть <b>не только</b> от вашего решения, но и от решений других участников
+                        этого исследования.
+                        Поэтому на расчет и выплату вам бонуса может уйти <b><u>до нескольких рабочих дней</u></b>.
+                        Заранее спасибо за ваше терпение!
+                    </li>
+                    {% if session.config.cq_check %}
+
+                        <li class="list-group-item  ">
+                            ПРОВЕРКА ПОНИМАНИЯ: В ходе исследования мы зададим вам несколько проверочных вопросов. Если
+                            вы
+                            ответите на них неверно <span
+                                class="text-danger">более чем <b>{{ Constants.MAX_CQ_ATTEMPTS_formatted }}</b></span>,
+                            вы не сможете принимать дальнейшее участие в исследовании.
+                        </li>
+                    {% endif %}
+                    <li class="list-group-item  ">
+                        ПРОДОЛЖИТЕЛЬНОСТЬ ИССЛЕДОВАНИЯ: Исследование займет около
+                        <b>{{ Constants.expected_time }}</b></span>.
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="text-danger my-3">
+        {% formfields %}
+    </div>
+    {% next_button %}
+
+{% endblock %}

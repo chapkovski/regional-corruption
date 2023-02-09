@@ -1,0 +1,147 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+    <link href="https://unpkg.com/survey-core@1.8.76/modern.min.css" type="text/css" rel="stylesheet"/>
+
+    <style>
+        .sv-btn.sv-footer__complete-btn {
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            --blue: #007bff;
+            --indigo: #6610f2;
+            --purple: #6f42c1;
+            --pink: #e83e8c;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --yellow: #ffc107;
+            --green: #28a745;
+            --teal: #20c997;
+            --cyan: #17a2b8;
+            --white: #fff;
+            --gray: #6c757d;
+            --gray-dark: #343a40;
+            --primary: #007bff;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --breakpoint-xs: 0;
+            --breakpoint-sm: 576px;
+            --breakpoint-md: 768px;
+            --breakpoint-lg: 992px;
+            --breakpoint-xl: 1200px;
+            --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            box-sizing: border-box;
+            margin: 0;
+            font-family: inherit;
+            overflow: visible;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            color: #fff;
+            background-color: #007bff!important;
+            border-color: #007bff;
+            padding: .5rem 1rem;
+            font-size: 1.25rem;
+            line-height: 1.5;
+            border-radius: .3rem;
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+        label.btn.btn-default.btn-secondary.active {
+            background: yellow;
+            color: black;
+        }
+
+        .sv-footer.sv-body__footer.sv-clearfix {
+            display: flex;
+        }
+
+
+    </style>
+
+
+    <div id="surveyElement" style="display:inline-block;width:100%;"></div>
+    <div id="surveyResult"></div>
+    <input type="hidden" id="surveyholder" name="surveyholder">
+
+    <script>
+        Survey.defaultBootstrapCss.navigationButton = "btn-primary btn-lg";
+        Survey
+            .StylesManager
+            .applyTheme("modern");
+
+        var json = {
+                requiredText: '',
+                showQuestionNumbers: "off",
+                showCompletedPage: false,
+                completeText: "Далее",
+                questions: [
+
+                    {
+                        type: "matrixdropdown",
+                        name: "region_knowledge",
+                        title: " Из каких источников вам известно о следующих регионах России (возможно выбрать  несколько ответов):",
+                        columns: [
+                            {
+                                name: "col1",
+                                isRequired:true,
+                                cellType: "checkbox",
+                                showInMultipleColumns: true,
+                                hasNone: true,
+                                noneText: 'Ничего не знаю о регионе',
+                                choices: [
+                                    {value:'live_in', text:'Я живу/жил/посещал этот регион'},
+                                    {value:'family',text:'От родственников и друзей'},
+                                    {value:'network',text:'Из социальных сетей '},
+                                    {value:'press',text:'Из СМИ'},
+                                    {value:'other', text:'Другое'}
+
+
+                                ],
+                            },
+                        ],
+                        rows: [
+                            {value: "arkhangelsk", text: 'Архангельская область'},
+                            {value: "moscow", text: 'Москва'},
+                            {value: "voronezh", text: 'Воронежская область'},
+                        ],
+                    },
+                ],
+            }
+        ;
+
+
+        window.survey = new Survey.Model(json);
+
+        survey
+            .onComplete
+            .add(function (sender) {
+                document
+                $('#surveyholder').val(JSON.stringify(sender.data, null, 3))
+                $('#form').submit()
+                ;
+            });
+
+        $("#surveyElement").Survey({model: survey});
+        ;
+    </script>
+
+
+{% endblock %}

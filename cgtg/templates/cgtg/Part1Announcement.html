@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Часть 1.
+{% endblock %}
+{% block content %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                          {% if not session.config.debug|default_if_none:False %}
+                        Сейчас вы получите инструкции к <b>Части 1</b> исследования. Из двух частей исследования одна
+                        будет выбрана случайным образом, и вы получите бонус в зависимости от решений, которые вы
+                        принимали в этой части. {% endif %}Нажмите "Далее" чтобы продолжить.
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    {% next_button %}
+{% endblock %}

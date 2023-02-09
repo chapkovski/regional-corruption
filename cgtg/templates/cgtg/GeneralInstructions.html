@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+{% endblock %}
+{% block content %}
+
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+
+
+                        <p>
+                            Данное исследование состоит <b>из трех частей</b>:
+                            <br>
+                            В Части 1 Вы должны будете подбросить монетку и указать, что Вам выпало.
+                            <b>Если Вам выпал Орел, Ваш дополнительный бонус в этой части исследования составит $0.25; в
+                                случае, если выпала
+                                Решка, Ваш бонус будет равен $0.</b>
+
+                        </p>
+
+
+                        <p>
+                            Инструкция для Части 2 будет показана вам позднее.
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}

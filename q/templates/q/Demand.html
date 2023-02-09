@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Завершающая анкета
+{% endblock %}
+
+{% block content %}
+<div class="card my-3">
+    <div class="card-body">
+        <div class="card-text">
+            <div class="fw-bold">
+                Какова, по вашему мнению, цель этого исследования?
+            </div>
+
+            {%  formfield player.demand label='' %}
+            {% formfield player.instructions_clarity %}
+        </div>
+    </div>
+</div>
+    {% next_button %}
+{% endblock %}
+
+

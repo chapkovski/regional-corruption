@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}
+    Regional Info Shown
+{% endblock %}
+{% block content %}
+    <style>
+    .otree-body {
+            max-width: 1000px!important;
+        }
+    </style>
+
+    {% include 'cgtg/includes/regional_desc.html' %}
+
+    <div class="row">
+        {% for r in player.get_regional_data %}
+          {% include 'cgtg/includes/single_region_info.html' with r=r %}
+        {% endfor %}
+
+    </div>
+    {% next_button %}
+
+{% endblock %}

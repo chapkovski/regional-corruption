@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Проверочные вопросы
+{% endblock %}
+{% block content %}
+
+   {% include 'cgtg/includes/tg_instructions_toggler.html' %}
+
+
+
+    <div class="alert alert-warning my-3">
+        Следующие вопросы нужны для проверки понимания вами инструкции. Вы сможете продолжить после того, как
+        представите правильные ответы на эти вопросы.
+        <div class="fw-bold">Вы можете всегда перечитать инструкцию, нажав кнопку "Инструкции".</div>
+        <div class="lead fw-bold text-center text-danger">Количество оставшихся попыток: {{ attempts }} </div>
+    </div>
+    {% formfields %}
+
+
+    {% next_button %}
+{% endblock %}
+
+

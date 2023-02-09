@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Благодарим за участие!
+{% endblock %}
+
+{% block content %}
+
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="lead text-center"> Ваш код
+                <div class="text-center"><span class="font-weight-bold display-4">{{ participant.code }}</span>
+                </div>
+            </div>
+            <div class="lead my-3  ">
+                Для того, чтобы задание считалось выполненным, пожалуйста, скопируйте его и вставьте на
+                страницу
+                задания в Толоке.
+            </div>
+        </div>
+    </div>
+
+    <button class="d-none">Next</button>
+
+{% endblock %}
+
+

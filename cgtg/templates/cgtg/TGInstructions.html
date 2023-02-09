@@ -1,0 +1,13 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Инструкции
+{% endblock %}
+
+{% block content %}
+  {% include 'cgtg/includes/instruction_alert.html' %}
+    {% include 'cgtg/includes/tg_instructions.html' %}
+    {% next_button %}
+{% endblock %}
+
